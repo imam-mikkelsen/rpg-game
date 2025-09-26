@@ -350,7 +350,7 @@
             createButton("Pemanah", () => selectClass('Pemanah'), classDiv);
             createButton("Pencuri", () => selectClass('Pencuri'), classDiv);
             createButton("Paladin", () => selectClass('Paladin'), classDiv);
-            createButton("Ahli Nujum", () => selectClass('Ahli Nujum'), classDiv);
+            createButton("Necromancer", () => selectClass('Necromancer'), classDiv);
             createButton("Berserker", () => selectClass('Berserker'), classDiv);
             optionsContainer.appendChild(classDiv);
         }
@@ -369,7 +369,7 @@
             else if (className === 'Pemanah') { player.baseMaxHp = 100; player.baseAttack = 12; }
             else if (className === 'Pencuri') { player.baseMaxHp = 90; player.baseAttack = 9; player.gold = 50; }
             else if (className === 'Paladin') { player.baseMaxHp = 130; player.baseAttack = 9; }
-            else if (className === 'Ahli Nujum') { player.baseMaxHp = 85; player.baseAttack = 11; }
+            else if (className === 'Necromancer') { player.baseMaxHp = 85; player.baseAttack = 11; }
             else if (className === 'Berserker') { player.baseMaxHp = 70; player.baseAttack = 12; }
             recalculateStats();
             player.hp = player.maxHp;
@@ -526,7 +526,7 @@
                 case 'Pemanah': skillText = "Tembakan Ganda"; break;
                 case 'Pencuri': skillText = "Lempar Pasir"; break;
                 case 'Paladin': skillText = "Cahaya Suci"; break;
-                case 'Ahli Nujum': skillText = "Sedot Nyawa"; break;
+                case 'Necromancer': skillText = "Sedot Nyawa"; break;
                 case 'Berserker': skillText = "Serangan Nekat"; break;
             }
             const skillBtn = createButton(`${skillText} Lv.${player.skills.main.level} ${player.skills.main.cooldown > 0 ? `(${player.skills.main.cooldown})` : ''}`, useSkill, specialMovesContainer, 'special-btn');
@@ -580,7 +580,7 @@
                     logMessage(`<span style="color:${'var(--success-color)'};">Cahaya suci memulihkan ${healAmount} HP!</span>`);
                     player.skills.main.cooldown = 4;
                     break;
-                case 'Ahli Nujum':
+                case 'Necromancer':
                     damage = player.totalAttack + (player.level * (1 + skillLvl)); // Scales with level and skill level
                     currentEnemy.hp -= damage;
                     const lifesteal = Math.floor(damage);
@@ -620,7 +620,7 @@
             const damage = Math.floor(Math.random() * (playerAttack / 2)) + Math.floor(playerAttack / 2) + 1;
             currentEnemy.hp -= damage;
             logMessage(`Kamu menyerang ${currentEnemy.name} dan memberikan ${damage} kerusakan.`);
-            if (player.class === 'Ahli Nujum') {
+            if (player.class === 'Necromancer') {
                 const lifesteal = Math.ceil(damage * 0.15);
                 player.hp = Math.min(player.maxHp, player.hp + lifesteal);
                 logMessage(`<span style="color:${'var(--special-color)'};">Kamu menyerap ${lifesteal} nyawa!</span>`);
@@ -756,3 +756,4 @@
 </body>
 
 </html>
+
