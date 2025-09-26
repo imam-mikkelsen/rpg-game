@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,180 +9,60 @@
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f0e8d0;
-            --main-color: #fdfaf0;
-            --border-color: #5c5c5c;
-            --text-color: #4a4a4a;
-            --accent-color: #2c78a0;
-            --success-color: #5a8f41;
-            --danger-color: #b83a3a;
-            --special-color: #b83ab8;
-            --font-family: 'VT323', monospace;
+            --bg-color: #f0e8d0; --main-color: #fdfaf0; --border-color: #5c5c5c; --text-color: #4a4a4a;
+            --accent-color: #2c78a0; --success-color: #5a8f41; --danger-color: #b83a3a;
+            --special-color: #b83ab8; --font-family: 'VT323', monospace;
         }
-
-        * {
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
         body {
-            font-family: var(--font-family);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            font-size: 24px;
+            font-family: var(--font-family); background-color: var(--bg-color); color: var(--text-color);
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            margin: 0; padding: 20px; font-size: 24px;
         }
-
         #game-window {
-            width: 100%;
-            max-width: 1000px;
-            background-color: var(--main-color);
-            border: 4px solid var(--border-color);
-            box-shadow: 8px 8px 0px var(--border-color);
-            padding: 15px;
-            display: flex;
-            gap: 15px;
+            width: 100%; max-width: 1000px; background-color: var(--main-color);
+            border: 4px solid var(--border-color); box-shadow: 8px 8px 0px var(--border-color);
+            padding: 15px; display: flex; gap: 15px;
         }
-
         #main-screen {
-            flex-grow: 1;
-            width: 65%;
-            border: 4px solid var(--border-color);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
+            flex-grow: 1; width: 65%; border: 4px solid var(--border-color); padding: 20px;
+            display: flex; flex-direction: column;
         }
-
         #stats-panel {
-            width: 35%;
-            border: 4px solid var(--border-color);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            width: 35%; border: 4px solid var(--border-color); padding: 20px;
+            display: flex; flex-direction: column; gap: 10px;
         }
-
         #screen-title {
-            text-align: center;
-            border-bottom: 4px solid var(--border-color);
-            padding-bottom: 10px;
-            margin: 0 0 20px 0;
-            color: var(--accent-color);
-            font-size: 28px;
+            text-align: center; border-bottom: 4px solid var(--border-color); padding-bottom: 10px;
+            margin: 0 0 20px 0; color: var(--accent-color); font-size: 28px;
         }
-
         #text-display {
-            flex-grow: 1;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            overflow-y: auto;
-            border-bottom: 2px dotted var(--border-color);
-            padding-bottom: 10px;
+            flex-grow: 1; line-height: 1.5; margin-bottom: 20px; overflow-y: auto;
+            border-bottom: 2px dotted var(--border-color); padding-bottom: 10px;
         }
-
-        #options-container,
-        #special-moves-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-
-        #special-moves-container {
-            margin-top: 15px;
-        }
-
+        #options-container, #special-moves-container { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        #special-moves-container { margin-top: 15px; }
         .game-btn {
-            background-color: var(--main-color);
-            color: var(--text-color);
-            border: 4px solid var(--border-color);
-            padding: 10px;
-            font-size: 22px;
-            font-family: var(--font-family);
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
+            background-color: var(--main-color); color: var(--text-color); border: 4px solid var(--border-color);
+            padding: 10px; font-size: 22px; font-family: var(--font-family); cursor: pointer; text-align: center; transition: all 0.2s;
         }
-
-        .game-btn.special-btn {
-            border-color: var(--special-color);
-            color: var(--special-color);
-        }
-
-        .game-btn.danger-btn {
-            border-color: var(--danger-color);
-            color: var(--danger-color);
-        }
-
-        .game-btn:hover {
-            background-color: var(--text-color);
-            color: var(--main-color);
-        }
-
-        .game-btn:disabled {
-            background-color: #ccc;
-            color: #888;
-            cursor: not-allowed;
-            border-color: #888;
-        }
-
-        .stat-group {
-            border-bottom: 2px dotted var(--border-color);
-            padding-bottom: 8px;
-        }
-
-        .stat-group h3 {
-            margin: 0 0 5px 0;
-            font-size: 26px;
-            color: var(--accent-color);
-        }
-
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .char-create-input {
-            width: 100%;
-            padding: 8px;
-            font-family: var(--font-family);
-            font-size: 22px;
-            border: 2px solid var(--border-color);
-            margin-bottom: 15px;
-        }
-
-        .class-selection {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
+        .game-btn.special-btn { border-color: var(--special-color); color: var(--special-color); }
+        .game-btn.danger-btn { border-color: var(--danger-color); color: var(--danger-color); }
+        .game-btn:hover { background-color: var(--text-color); color: var(--main-color); }
+        .game-btn:disabled { background-color: #ccc; color: #888; cursor: not-allowed; border-color: #888; }
+        .stat-group { border-bottom: 2px dotted var(--border-color); padding-bottom: 8px; }
+        .stat-group h3 { margin: 0 0 5px 0; font-size: 26px; color: var(--accent-color); }
+        .stat-item { display: flex; justify-content: space-between; }
+        .char-create-input { width: 100%; padding: 8px; font-family: var(--font-family); font-size: 22px; border: 2px solid var(--border-color); margin-bottom: 15px; }
+        .class-selection { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         @media (max-width: 800px) {
-            body {
-                font-size: 20px;
-                padding: 10px;
-            }
-
-            #game-window {
-                flex-direction: column;
-            }
-
-            #main-screen,
-            #stats-panel {
-                width: 100%;
-            }
-
-            .class-selection {
-                grid-template-columns: 1fr;
-            }
+            body { font-size: 20px; padding: 10px;}
+            #game-window { flex-direction: column; }
+            #main-screen, #stats-panel { width: 100%; }
+            .class-selection { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-
 <body>
     <div id="game-window">
         <div id="main-screen">
@@ -281,9 +160,9 @@
                 location.reload();
             }
         }
-
+        
         function clearScreen(clearLog = true) {
-            if (clearLog) textDisplay.innerHTML = '';
+            if(clearLog) textDisplay.innerHTML = '';
             optionsContainer.innerHTML = '';
             specialMovesContainer.innerHTML = '';
         }
@@ -292,11 +171,11 @@
         function createButton(text, onClick, parent = optionsContainer, className = '') {
             const button = document.createElement('button');
             button.innerText = text; button.classList.add('game-btn');
-            if (className) button.classList.add(className);
+            if(className) button.classList.add(className);
             button.onclick = onClick; parent.appendChild(button);
             return button;
         }
-
+        
         function updateStatsUI() {
             if (!player || !player.name) return;
             playerNameStat.textContent = player.name; playerClassStat.textContent = player.class;
@@ -320,13 +199,13 @@
                 player.baseAttack += 2;
                 player.talentPoints++; // NEW: Gain a talent point
                 recalculateStats();
-                player.hp = player.maxHp;
+                player.hp = player.maxHp; 
                 logMessage(`\n<span style="color:${'var(--success-color)'};">DING! Kamu mencapai Level ${player.level}!</span>`);
                 logMessage(`<span style="color:${'var(--special-color)'};">Kamu mendapatkan 1 Poin Talenta!</span>`);
                 updateStatsUI();
             }
         }
-
+        
         function recalculateStats() {
             const weaponData = { "Tangan Kosong": 0, "Pedang Ksatria": 10, "Pedang Baja Tempa": 30, "Pedang Obsidian": 65 };
             const armorData = { "Kain Biasa": 0, "Zirah Kulit Keras": 30, "Zirah Baja": 70 };
@@ -354,19 +233,18 @@
             createButton("Berserker", () => selectClass('Berserker'), classDiv);
             optionsContainer.appendChild(classDiv);
         }
-
+        
         function selectClass(className) {
             const name = document.getElementById('charNameInput').value;
             if (!name) { alert("Tolong masukkan nama karaktermu!"); return; }
-            player = {
-                name: name, class: className, level: 1, xp: 0, xpToNextLevel: 100, gold: 20,
+            player = { name: name, class: className, level: 1, xp: 0, xpToNextLevel: 100, gold: 20,
                 baseMaxHp: 0, baseAttack: 0, totalAttack: 0, maxHp: 0, talentPoints: 0,
-                equipment: { weapon: "Tangan Kosong", armor: "Kain Biasa", accessory: "-" },
+                equipment: { weapon: "Tangan Kosong", armor: "Kain Biasa", accessory: "-"},
                 skills: { main: { level: 1, cooldown: 0 } }
             };
-            if (className === 'Prajurit') { player.baseMaxHp = 120; player.baseAttack = 10; }
-            else if (className === 'Penyihir') { player.baseMaxHp = 80; player.baseAttack = 15; }
-            else if (className === 'Pemanah') { player.baseMaxHp = 100; player.baseAttack = 12; }
+            if (className === 'Prajurit') { player.baseMaxHp = 120; player.baseAttack = 10; } 
+            else if (className === 'Penyihir') { player.baseMaxHp = 80; player.baseAttack = 15; } 
+            else if (className === 'Pemanah') { player.baseMaxHp = 100; player.baseAttack = 12; } 
             else if (className === 'Pencuri') { player.baseMaxHp = 90; player.baseAttack = 9; player.gold = 50; }
             else if (className === 'Paladin') { player.baseMaxHp = 130; player.baseAttack = 9; }
             else if (className === 'Necromancer') { player.baseMaxHp = 85; player.baseAttack = 11; }
@@ -387,7 +265,7 @@
             logMessage('Kamu berada di kota.');
 
             // Quest logic remains the same
-            switch (story.quest) {
+            switch(story.quest) {
                 case "Mulai": createButton("Bicara dengan Tetua Desa", () => { story.quest = "Cari Info Goblin"; clearScreen(); logMessage(`Tetua Desa: "${player.name}, syukurlah kau datang! Raja Goblin Bayangan telah mencuri Batu Surya..."`); updateStatsUI(); saveGame(); createButton("Lanjutkan...", showTown); }); break;
                 case "Temukan Peta": createButton("Lapor ke Tetua", () => { story.quest = "Pergi ke Rawa"; clearScreen(); logMessage(`Tetua melihat petamu. "Benar dugaanku! Ini menunjuk ke Rawa Terkutuk!..."`); updateStatsUI(); saveGame(); createButton("Lanjutkan...", showTown); }); break;
                 case 'Selesai Bab 1': createButton("Bicara dengan Tetua Desa (Quest Baru)", () => { story.quest = "Selidiki Reruntuhan"; clearScreen(); logMessage(`Tetua Desa: "Pahlawan, ada kabar buruk. Warga desa hilang..."`); updateStatsUI(); saveGame(); createButton("Lanjutkan...", showTown); }); break;
@@ -419,7 +297,7 @@
             clearScreen();
             screenTitle.textContent = `TINGKATKAN KARAKTER (Poin: ${player.talentPoints})`;
             logMessage("Gunakan Poin Talenta untuk memperkuat karaktermu.");
-
+            
             // Upgrade Stats
             createButton("Tingkatkan HP Dasar (+10 HP)", () => {
                 player.talentPoints--;
@@ -443,7 +321,7 @@
                     saveGame(); showUpgradeScreen();
                 });
             } else {
-                const maxSkill = createButton(`Tingkatkan Skill (Lv.3 MAX)`, () => { });
+                const maxSkill = createButton(`Tingkatkan Skill (Lv.3 MAX)`, () => {});
                 maxSkill.disabled = true;
             }
 
@@ -467,12 +345,12 @@
             const randomEnemyKey = ["Slime", "Goblin", "Serigala Hutan", "Anjing Void"][Math.floor(Math.random() * 4)];
             startBattle(enemies[randomEnemyKey]);
         }
-
+        
         // MODIFIED: Added new items to the shop
         function showShop() {
             clearScreen(); screenTitle.textContent = "TOKO SENJATA & ZIRAH";
             logMessage('"Lihatlah barang daganganku, pahlawan!"');
-
+            
             const ownedWeapons = ["Tangan Kosong", player.equipment.weapon];
             if (!ownedWeapons.includes("Pedang Ksatria")) {
                 const btn = createButton("Beli Pedang Ksatria (+10 ATK) - 70 Emas", () => { if (player.gold >= 70) { player.gold -= 70; player.equipment.weapon = "Pedang Ksatria"; recalculateStats(); updateStatsUI(); saveGame(); showShop(); } else { logMessage("Emasmu tidak cukup!"); } });
@@ -504,7 +382,7 @@
 
             createButton("Kembali ke Kota", showTown);
         }
-
+        
         function startBattle(enemyData) {
             clearScreen();
             currentEnemy = { ...enemyData, hp: enemyData.maxHp };
@@ -518,9 +396,9 @@
             optionsContainer.innerHTML = '';
             specialMovesContainer.innerHTML = '';
             createButton("Serang!", playerTurn);
-
+            
             let skillText;
-            switch (player.class) {
+            switch(player.class) {
                 case 'Prajurit': skillText = "Perisai Kuat"; break;
                 case 'Penyihir': skillText = "Badai Petir"; break;
                 case 'Pemanah': skillText = "Tembakan Ganda"; break;
@@ -530,23 +408,23 @@
                 case 'Berserker': skillText = "Serangan Nekat"; break;
             }
             const skillBtn = createButton(`${skillText} Lv.${player.skills.main.level} ${player.skills.main.cooldown > 0 ? `(${player.skills.main.cooldown})` : ''}`, useSkill, specialMovesContainer, 'special-btn');
-            if (player.skills.main.cooldown > 0) skillBtn.disabled = true;
+            if(player.skills.main.cooldown > 0) skillBtn.disabled = true;
 
             if (!currentEnemy.isBoss) createButton("Coba Kabur", tryToFlee);
         }
 
         // MODIFIED: Updated skill logic with levels
         function useSkill() {
-            clearScreen(false);
-            let damage = 0;
-            const skillLvl = player.skills.main.level;
-            switch (player.class) {
-                case 'Prajurit':
+             clearScreen(false);
+             let damage = 0;
+             const skillLvl = player.skills.main.level;
+             switch(player.class) {
+                case 'Prajurit': 
                     logMessage("Kamu mengangkat perisai! Pertahananmu meningkat drastis!");
-                    battleState.playerEffects.push({ name: 'shielded', duration: 2 + (skillLvl > 1 ? 1 : 0) }); // Duration +1 at Lvl 2
+                    battleState.playerEffects.push({name: 'shielded', duration: 2 + (skillLvl > 1 ? 1 : 0) }); // Duration +1 at Lvl 2
                     player.skills.main.cooldown = 5 - (skillLvl > 2 ? 1 : 0); // Cooldown -1 at Lvl 3
                     break;
-                case 'Penyihir':
+                case 'Penyihir': 
                     damage = player.totalAttack * (2.0 + (skillLvl * 0.5)); // 2.5x / 3.0x / 3.5x
                     currentEnemy.hp -= damage;
                     logMessage(`Petir menyambar ${currentEnemy.name}, memberikan ${Math.floor(damage)} kerusakan!`);
@@ -560,19 +438,10 @@
                     player.skills.main.cooldown = 3;
                     break;
                 case 'Pencuri':
-                    // Menghitung kerusakan (60% dari total serangan)
-                    let damage = Math.floor(player.totalAttack * 0.6);
-
-                    // Menerapkan kerusakan ke musuh
-                    currentEnemy.hp -= damage;
-
-                    // Mengubah pesan agar menampilkan kerusakan dan efek buta
-                    logMessage(`Kamu menendang pasir ke mata ${currentEnemy.name}, memberikan ${damage} kerusakan dan membuatnya buta!`);
-
-                    // Logika efek buta dan cooldown tetap sama
+                    logMessage(`Kamu melempar pasir ke mata ${currentEnemy.name}!`);
                     battleState.enemyBlinded = true;
-                    if (skillLvl > 2) battleState.playerEffects.push({ name: 'evasive', duration: 1 });
-                    player.skills.main.cooldown = 5 - (skillLvl > 1 ? 1 : 0);
+                    if (skillLvl > 2) battleState.playerEffects.push({name: 'evasive', duration: 1}); // Lvl 3 adds evasion
+                    player.skills.main.cooldown = 5 - (skillLvl > 1 ? 1 : 0); // Cooldown -1 at Lvl 2
                     break;
                 case 'Paladin':
                     const healAmount = Math.floor(player.maxHp * (0.5 + (skillLvl * 0.1))); // 60% / 70% / 80%
@@ -596,15 +465,15 @@
                     logMessage(`SERANGAN NEKAT! Kamu memberikan ${Math.floor(damage)} kerusakan, tapi kehilangan ${recoil} HP!`);
                     player.skills.main.cooldown = 3;
                     break;
-            }
+             }
+             
+             if (currentEnemy.hp <= 0) { winBattle(); return; }
+             if (player.hp <= 0) { player.hp = 0; gameOver(); return; }
 
-            if (currentEnemy.hp <= 0) { winBattle(); return; }
-            if (player.hp <= 0) { player.hp = 0; gameOver(); return; }
-
-            logMessage(`${currentEnemy.name} tersisa ${Math.max(0, Math.floor(currentEnemy.hp))} HP.`);
-            updateStatsUI();
-            optionsContainer.innerHTML = 'Giliran Musuh...'; specialMovesContainer.innerHTML = '';
-            setTimeout(enemyTurn, 1500);
+             logMessage(`${currentEnemy.name} tersisa ${Math.max(0, Math.floor(currentEnemy.hp))} HP.`);
+             updateStatsUI();
+             optionsContainer.innerHTML = 'Giliran Musuh...'; specialMovesContainer.innerHTML = '';
+             setTimeout(enemyTurn, 1500);
         }
 
         function playerTurn() {
@@ -615,7 +484,7 @@
                 const missingHpPercent = 1 - (player.hp / player.maxHp);
                 const damageBonus = Math.floor(playerAttack * (missingHpPercent * 1.5));
                 playerAttack += damageBonus;
-                if (damageBonus > 0) logMessage(`<span style="color:${'var(--danger-color)'};">Amarah membara!</span>`);
+                if(damageBonus > 0) logMessage(`<span style="color:${'var(--danger-color)'};">Amarah membara!</span>`);
             }
             const damage = Math.floor(Math.random() * (playerAttack / 2)) + Math.floor(playerAttack / 2) + 1;
             currentEnemy.hp -= damage;
@@ -635,7 +504,7 @@
         function enemyTurn() {
             clearScreen(false);
             let damage = Math.floor(Math.random() * (currentEnemy.attack / 2)) + Math.floor(currentEnemy.attack / 2);
-
+            
             let shieldEffect = battleState.playerEffects.find(e => e.name === 'shielded');
             if (shieldEffect) {
                 const reduction = player.skills.main.level > 2 ? 0.7 : 0.5; // 50% or 70% redux
@@ -643,20 +512,20 @@
                 logMessage("Perisaimu menahan sebagian serangan!");
                 shieldEffect.duration--;
             }
-            const evasiveEffect = battleState.playerEffects.find(e => e.name === 'evasive');
+             const evasiveEffect = battleState.playerEffects.find(e => e.name === 'evasive');
             if (evasiveEffect) {
                 logMessage("Kamu menghindar dari serangan!");
                 damage = 0;
                 evasiveEffect.duration--;
             }
             battleState.playerEffects = battleState.playerEffects.filter(e => e.duration > 0);
-
+            
             if (battleState.enemyBlinded) {
                 logMessage(`${currentEnemy.name} buta dan serangannya gagal!`);
                 battleState.enemyBlinded = false;
                 damage = 0;
             }
-
+            
             player.hp -= damage;
             logMessage(`<span style="color:${'var(--danger-color)'};">${currentEnemy.name} menyerangmu, ${damage} kerusakan.</span>`);
             if (player.hp <= 0) { player.hp = 0; gameOver(); return; }
@@ -665,18 +534,17 @@
         }
 
         function tryToFlee() {
-            if (Math.random() > 0.5) {
-                logMessage("Kamu berhasil kabur!"); setTimeout(showTown, 1500);
+            if (Math.random() > 0.5) { logMessage("Kamu berhasil kabur!"); setTimeout(showTown, 1500);
             } else {
                 logMessage("Gagal kabur!");
                 optionsContainer.innerHTML = 'Giliran Musuh...'; specialMovesContainer.innerHTML = '';
                 setTimeout(enemyTurn, 1500);
             }
         }
-
+        
         function winBattle() {
             clearScreen(false);
-
+            
             let goldDropped = currentEnemy.gold;
             if (player.equipment.accessory === 'Jimat Keberuntungan') {
                 goldDropped = Math.floor(goldDropped * 1.25);
@@ -687,7 +555,7 @@
 
             player.xp += currentEnemy.xp; player.gold += goldDropped;
             checkForLevelUp();
-
+            
             if (story.progress.isQuest) {
                 if (story.quest === "Cari Info Goblin") {
                     story.progress.killed++;
@@ -707,10 +575,10 @@
                     story.quest = "Selesai Bab 1";
                     logMessage("Raja Goblin telah musnah! Kamu mengambil kembali Batu Surya!");
                     createButton("Kembali sebagai Pahlawan", showTown);
-                }
+                } 
                 else if (story.quest === "Selidiki Reruntuhan") {
                     story.progress.killed++;
-                    if (story.progress.killed < story.progress.toKill) {
+                     if (story.progress.killed < story.progress.toKill) {
                         logMessage(`Sisa ${story.progress.toKill - story.progress.killed} Acolyte lagi.`);
                         createButton("Cari Lagi", () => startBattle(enemies['Acolyte Kultus']));
                     } else {
@@ -734,7 +602,7 @@
             }
             saveGame();
         }
-
+        
         function gameOver() {
             clearScreen(); screenTitle.textContent = "KAMU KALAH";
             logMessage("Petualanganmu berakhir di sini. Progres terakhirmu tersimpan.");
@@ -744,7 +612,7 @@
                 showTown();
             });
         }
-
+        
         // --- GAME START LOGIC ---
         if (loadGame()) {
             recalculateStats();
@@ -754,6 +622,4 @@
         }
     </script>
 </body>
-
 </html>
-
